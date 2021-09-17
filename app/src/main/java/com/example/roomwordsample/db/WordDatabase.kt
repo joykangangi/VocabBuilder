@@ -15,7 +15,9 @@ import kotlinx.coroutines.launch
     exportSchema = false )
 abstract class WordDatabase: RoomDatabase() {
     abstract fun wordDao(): WordDao
-    private class WordDatabaseCallback(
+
+
+    /*private class WordDatabaseCallback(
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
 
@@ -37,7 +39,7 @@ abstract class WordDatabase: RoomDatabase() {
             }
         }
     }
-
+*/
 
     companion object {
         @Volatile private var instance: WordDatabase? = null
@@ -45,14 +47,14 @@ abstract class WordDatabase: RoomDatabase() {
 
         // if the INSTANCE is not null, then return it,
         // if it is, then create the database
-        operator fun invoke (context: Context, scope: CoroutineScope) = instance?: synchronized(LOCK) {
-            instance?: createDatabase(context, scope).also { instance = it }
+        operator fun invoke (context: Context) = instance?: synchronized(LOCK) {
+            instance?: createDatabase(context).also { instance = it }
             //instance = if (instance == null) createDatabase(context) else instance
         }
 
-        private fun createDatabase(context: Context, scope: CoroutineScope) =
+        private fun createDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext, WordDatabase::class.java, "word_db")
-                .addCallback(WordDatabaseCallback(scope))
+                //.addCallback(WordDatabaseCallback(scope))
                 .build()
     }
 }

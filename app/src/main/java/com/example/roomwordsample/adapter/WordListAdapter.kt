@@ -1,50 +1,65 @@
 package com.example.roomwordsample.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roomwordsample.R
+import com.example.roomwordsample.databinding.WordListItemBinding
 import com.example.roomwordsample.db.repository.Word
+import com.example.roomwordsample.screens.MainActivity
 
-class WordListAdapter: androidx.recyclerview.widget.ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
+class WordListAdapter(
+    val context: Context,
+    val deletedClicked: DeletedClicked,
+    val detailsClick: WordDetailsClick
+    ): ListAdapter<Word,WordListAdapter.WordViewHolder>(WordDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-     return WordViewHolder.create(parent)
+       val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = WordListItemBinding.inflate(layoutInflater, parent, false)
+        return WordViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        val current = getItem(position)
-        holder.bind(current.word)
+        val currentWord = getItem(position)
+        holder.bind(currentWord)
     }
 
-
-    class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val wordItemView: TextView = itemView.findViewById(R.id.textView)
-
-        fun bind(text: String?) {
-            wordItemView.text = text
-        }
-        companion object {
-            fun create(parent: ViewGroup): WordViewHolder {
-                val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.word_list_item, parent, false)
-                return WordViewHolder(view)
+    inner class WordViewHolder(private var binding: WordListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(currentWord: Word) {
+            binding.textView.text = currentWord.word
+            binding.timeStamp.text = context.getString(R.string.las_up, currentWord.timeStamp)
+            binding.root.setOnClickListener {
+                detailsClick.onDetailClick(currentWord)
             }
+
+            binding.deleteBtn.setOnClickListener {
+                deletedClicked.onDeleteIconClick(currentWord)
+            }
+
         }
     }
 
-    class WordsComparator : DiffUtil.ItemCallback<Word> () {
+    object WordDiffUtil : DiffUtil.ItemCallback<Word>() {
         override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
-           return oldItem.word == newItem.word
+            return oldItem == newItem
         }
 
     }
+}
 
+interface DeletedClicked {
+    fun onDeleteIconClick(word: Word)
+}
+
+interface WordDetailsClick {
+    fun onDetailClick(word: Word)
 }

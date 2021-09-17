@@ -7,14 +7,17 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WordDao {
-    @Query("SELECT * FROM word_table ORDER BY word")
-    fun getAllWords(): Flow<List<Word>>
+    @Query("SELECT * FROM word_table ORDER BY id ")
+    fun getAllWords(): LiveData<List<Word>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
    suspend fun addNewWord(newWord: Word)
 
-   @Query("DELETE FROM word_table")
-   suspend fun deleteAll()
+   @Delete
+   suspend fun delete(newWord: Word)
+
+   @Update
+   suspend fun update(newWord: Word)
 
 
 

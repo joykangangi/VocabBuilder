@@ -6,4 +6,6 @@
     <string name="add_word">Add word</string>
     <string name="hint_meaning">Meaning…</string>
     <string name="save">Save</string>
+    <string name="del">Delete icon</string>
+    <string name="las_up">Last Updated %s</string>
 </resources>
