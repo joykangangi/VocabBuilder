@@ -25,10 +25,8 @@ class WordViewModel(private val repository: WordRepository): ViewModel() {
 
 class WordViewModelFactory(private val repository: WordRepository): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-      if (modelClass.isAssignableFrom(WordViewModel::class.java)) {
-          return WordViewModel(repository) as T
-      }
-        throw IllegalArgumentException("Unknown ViewModel")
-    }
+        return modelClass.getConstructor(WordRepository::class.java)
+            .newInstance(repository)
 
+    }
 }

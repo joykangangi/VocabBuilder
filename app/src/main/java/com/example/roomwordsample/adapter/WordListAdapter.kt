@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.roomwordsample.R
 import com.example.roomwordsample.databinding.WordListItemBinding
 import com.example.roomwordsample.db.repository.Word
-import com.example.roomwordsample.screens.MainActivity
 
 class WordListAdapter(
     val context: Context,
@@ -31,7 +30,7 @@ class WordListAdapter(
     inner class WordViewHolder(private var binding: WordListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(currentWord: Word) {
-            binding.textView.text = currentWord.word
+            binding.textView.text = currentWord.wordTitle
             binding.timeStamp.text = context.getString(R.string.las_up, currentWord.timeStamp)
             binding.root.setOnClickListener {
                 detailsClick.onDetailClick(currentWord)

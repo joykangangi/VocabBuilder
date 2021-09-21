@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "word_table")
 data class Word(
-    @ColumnInfo val word: String,
+    @ColumnInfo val wordTitle: String,
     @ColumnInfo val description: String,
     @ColumnInfo val timeStamp: String
     )

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RoomWordSample/app/src/main/res/drawable/oval_button.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RoomWordSample/app/src/main/res/layout/activity_main.xml" value="0.2421875" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RoomWordSample/app/src/main/res/layout/activity_new_word.xml" value="0.1962962962962963" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RoomWordSample/app/src/main/res/layout/word_list_item.xml" value="0.23333333333333334" />

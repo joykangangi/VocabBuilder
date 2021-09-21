@@ -1,17 +1,16 @@
 package com.example.roomwordsample.screens
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.roomwordsample.WordApplications
 import com.example.roomwordsample.adapter.DeletedClicked
 import com.example.roomwordsample.adapter.WordDetailsClick
 import com.example.roomwordsample.adapter.WordListAdapter
 import com.example.roomwordsample.databinding.ActivityMainBinding
 import com.example.roomwordsample.db.WordViewModel
-import com.example.roomwordsample.db.WordViewModelFactory
 import com.example.roomwordsample.db.repository.Word
 
 class MainActivity : AppCompatActivity(), WordDetailsClick, DeletedClicked {
@@ -29,21 +28,35 @@ private lateinit var binding: ActivityMainBinding
             }
 
         binding.fab.setOnClickListener {
-            val intent = Intent(applicationContext, NewWordActivity::class.java)
+            val intent = Intent(this, AddEditActivity::class.java)
             startActivity(intent)
+            this.finish()
         }
-        wordViewModel.allWords.observe(this, {
+       wordViewModel = ViewModelProvider(this, ViewModelProvider
+           .AndroidViewModelFactory.getInstance(application)
+       ).get(WordViewModel::class.java)
+
+        wordViewModel.allWords.observe(this, {list->
             // Update the cached copy of the words in the adapter.
-            it?.let { myAdapter.submitList(it) }
+            list?.let {
+                myAdapter.submitList(it)
+            }
         })
     }
 
     override fun onDetailClick(word: Word) {
-        TODO("Not yet implemented")
+        val intent = Intent(this, AddEditActivity::class.java)
+        intent.putExtra("wordType", "Edit" )
+        intent.putExtra("wordTitle", word.wordTitle)
+        intent.putExtra("wordDesc", word.description)
+        intent.putExtra("wordId", word.id)
+        startActivity(intent)
+        this.finish()
     }
 
     override fun onDeleteIconClick(word: Word) {
-        TODO("Not yet implemented")
+      wordViewModel.deleteWord(word)
+        Toast.makeText(this, "${word.wordTitle} Deleted", Toast.LENGTH_LONG).show()
     }
 
 }
