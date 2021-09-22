@@ -3,18 +3,22 @@ package com.example.roomwordsample.screens
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.roomwordsample.R
+import com.example.roomwordsample.WordApplications
 import com.example.roomwordsample.databinding.ActivityAddEditBinding
 import com.example.roomwordsample.db.WordViewModel
+import com.example.roomwordsample.db.WordViewModelFactory
 import com.example.roomwordsample.db.repository.Word
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddEditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditBinding
-    private lateinit var wordViewModel: WordViewModel
+   private val wordViewModel: WordViewModel by viewModels {
+       WordViewModelFactory((application as WordApplications).repository)
+   }
     private var wordId = -1
 
 
@@ -22,8 +26,8 @@ class AddEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        wordViewModel = ViewModelProvider(this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(wordViewModel::class.java)
+       // wordViewModel = ViewModelProvider(this,
+          //  ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)).get(wordViewModel::class.java)
 
         val wordType = intent.getStringExtra("wordType")
         if (wordType.equals("Edit")) {
@@ -46,12 +50,13 @@ class AddEditActivity : AppCompatActivity() {
                 if (wordTitle.isNotEmpty() && wordDesc.isNotEmpty()) {
 
                     val date = SimpleDateFormat(pattern, Locale.getDefault())
-                        val currentDate = date.format(Date())
+                    val currentDate = date.format(Date())
                     val updateWord = Word(wordTitle, wordDesc, currentDate)
                     updateWord.id = wordId.toLong()
                     wordViewModel.updateWord(updateWord)
                     Toast.makeText(this, "Word updated...", Toast.LENGTH_LONG).show()
-                } else{
+                }
+            }else{
                     if (wordTitle.isNotEmpty() && wordDesc.isNotEmpty()) {
                         val date = SimpleDateFormat(pattern, Locale.getDefault())
                         val currentDate = date.format(Date())
@@ -66,4 +71,3 @@ class AddEditActivity : AppCompatActivity() {
     }
 
 
-}

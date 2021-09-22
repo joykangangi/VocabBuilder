@@ -3,20 +3,32 @@ package com.example.roomwordsample.screens
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.getInstance
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.roomwordsample.WordApplications
 import com.example.roomwordsample.adapter.DeletedClicked
 import com.example.roomwordsample.adapter.WordDetailsClick
 import com.example.roomwordsample.adapter.WordListAdapter
 import com.example.roomwordsample.databinding.ActivityMainBinding
+import com.example.roomwordsample.db.WordDao
+import com.example.roomwordsample.db.WordDatabase
 import com.example.roomwordsample.db.WordViewModel
+import com.example.roomwordsample.db.WordViewModelFactory
 import com.example.roomwordsample.db.repository.Word
+import com.example.roomwordsample.db.repository.WordRepository
 
 class MainActivity : AppCompatActivity(), WordDetailsClick, DeletedClicked {
-   private lateinit var wordViewModel: WordViewModel
+   //private lateinit var wordViewModel: WordViewModel
+  //  private lateinit var repository: WordRepository
+   private val wordViewModel: WordViewModel by viewModels {
+       WordViewModelFactory((application as WordApplications).repository)
+   }
 
-private lateinit var binding: ActivityMainBinding
+       private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -32,13 +44,14 @@ private lateinit var binding: ActivityMainBinding
             startActivity(intent)
             this.finish()
         }
-       wordViewModel = ViewModelProvider(this, ViewModelProvider
-           .AndroidViewModelFactory.getInstance(application)
-       ).get(WordViewModel::class.java)
 
-        wordViewModel.allWords.observe(this, {list->
+        //repository = WordRepository(WordDatabase.invoke(this).wordDao())
+
+       // wordViewModel = ViewModelProvider(this, WordViewModelFactory(repository)).get(WordViewModel::class.java)
+
+        wordViewModel.allWords.observe(this, { words->
             // Update the cached copy of the words in the adapter.
-            list?.let {
+            words.let {
                 myAdapter.submitList(it)
             }
         })

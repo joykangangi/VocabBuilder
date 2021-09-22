@@ -20,7 +20,7 @@ class WordApplications: Application() {
     rather than when the application starts
      */
 
-    private val applicationScope = CoroutineScope(SupervisorJob())
-    private val database by lazy { WordDatabase.invoke(this, applicationScope) }
+    //private val applicationScope = CoroutineScope(SupervisorJob())
+    private val database by lazy { WordDatabase.invoke(this) }
     val repository by lazy { WordRepository(database.wordDao()) }
 }
