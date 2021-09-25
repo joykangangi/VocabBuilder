@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.getInstance
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.roomwordsample.R
 import com.example.roomwordsample.WordApplications
 import com.example.roomwordsample.adapter.DeletedClicked
 import com.example.roomwordsample.adapter.WordDetailsClick
@@ -55,6 +56,9 @@ class MainActivity : AppCompatActivity(), WordDetailsClick, DeletedClicked {
                 myAdapter.submitList(it)
             }
         })
+        if (myAdapter.itemCount == 0) {
+            binding.wordRecyView.background = getDrawable(R.drawable.)
+        }
     }
 
     override fun onDetailClick(word: Word) {

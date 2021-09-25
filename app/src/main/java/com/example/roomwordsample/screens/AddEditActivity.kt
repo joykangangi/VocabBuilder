@@ -16,6 +16,7 @@ import java.util.*
 
 class AddEditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditBinding
+
    private val wordViewModel: WordViewModel by viewModels {
        WordViewModelFactory((application as WordApplications).repository)
    }
