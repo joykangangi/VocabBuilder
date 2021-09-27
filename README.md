@@ -1,6 +1,6 @@
 # VocabBuilder
 ## Overview
-An app to add your new learnt words or basically any new thing you find worth remembering. Making a notes app has become monotonous and I believe this is unique. I love reading and I'm encountering new words which I desire to remember their meaning. Glad that this app solves that and future updates that will make it better than the old word-recording method. Books get lost, but technology will find your data. 
+An app to add your new learnt words or basically any new thing you find worth remembering. Making a notes app has become monotonous and I believe this is unique. I love reading and I'm encountering new words which I desire to remember their meaning. Glad that this app solves that and future updates that will make it better than the old word-recording method. Books get lost, but technology will find your data.
 
 # Lessons Learnt
 Just like any other project, I got to learn from this one, both technical and non-technical skills/concepts.
@@ -38,6 +38,21 @@ To understand this difference read up on this [article](https://mjmanaog.medium.
 ###### C.Database
 Here we create our database and define how it will be accessed, it has a companion object to allow clients to access methods for creating or getting a database without instatiating the class(it is an abstract class) The class is solely to provide a database, there is no need to instatiate it. There is a synchronize block with a Lock to ensure only one thread of execution at a time can enter this block of code.
 ## 3.Adapter
+It prepares views to be loaded in the recyclerview. This is done with the help of the methods:
+- onCreateViewHolder -> to create a new ViewHolder(template) when no existing viewHolders can be re-used.
+- onBindViewHolder -> to bind views from the input to the viewHolder 
+- getItemCount-> to return the numbers of list items. In this project however, a DiffUtil was used that calculates the difference between two lists and outputs a list of updated operations that convert the old list(first) to a new list(second).
+- an inner class of viewHolder-> to represent a sinlge list item view.
+- interfaces, are the ones to help in making the recycler items clickable and these interfaces are defined in the main activity. One interface is on clicking the delete icon while the other is to see detals of the new word or phrase.
 ## 4.Screens
+##### Main Activity
+##### AddEdit Activity
 ## 5.Sreenshoots
+![screen1](https://user-images.githubusercontent.com/64706463/134977944-cb829693-b196-4361-8e0d-82ddaf9c5b2b.png)
+![screen2](https://user-images.githubusercontent.com/64706463/134977955-d0630c6f-1585-4e07-bc2d-0436377421b4.png)
 
+## 6. Future Updates
+As I continue learning and researching, the following are features I would like to add:
+- Categorize what to add by color e.g. New Words, Quotes, Religion Verses, Names of a new place.
+- Add alarm, this allarm will use the desired tune, i.e. of a new word or quote, or whatever in the list that the user desires to wake up to. (I find waking up to phrases I like better than just some sound, which becomes like a noisy gong over time)
+- Reminders according to a selected frequency by the users, e.g daily, once a week, etc to remind them of the new learnt things. 
