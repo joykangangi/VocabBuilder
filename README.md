@@ -47,12 +47,12 @@ It prepares views to be loaded in the recyclerview. This is done with the help o
 ## 4.Screens
 ##### Main Activity
 ##### AddEdit Activity
-## 5.Sreenshoots
+## 5.Screenshoots
 ![screen1](https://user-images.githubusercontent.com/64706463/134977944-cb829693-b196-4361-8e0d-82ddaf9c5b2b.png)
 ![screen2](https://user-images.githubusercontent.com/64706463/134977955-d0630c6f-1585-4e07-bc2d-0436377421b4.png)
 
 ## 6. Future Updates
 As I continue learning and researching, the following are features I would like to add:
 - Categorize what to add by color e.g. New Words, Quotes, Religion Verses, Names of a new place.
-- Add alarm, this allarm will use the desired tune, i.e. of a new word or quote, or whatever in the list that the user desires to wake up to. (I find waking up to phrases I like better than just some sound, which becomes like a noisy gong over time)
+- Add alarm, this alarm will use the desired tune, i.e. of a new word or quote, or whatever in the list that the user desires to wake up to. (I find waking up to phrases I like better than just some sound, which becomes like a noisy gong over time)
 - Reminders according to a selected frequency by the users, e.g daily, once a week, etc to remind them of the new learnt things. 
