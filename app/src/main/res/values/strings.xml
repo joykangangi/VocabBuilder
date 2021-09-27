@@ -9,4 +9,6 @@
     <string name="del">Delete icon</string>
     <string name="las_up">Last Updated %s</string>
     <string name="update">Update</string>
+    <string name="add_bg">Add Background</string>
+    <string name="nothing">Nothing New :\</string>
 </resources>

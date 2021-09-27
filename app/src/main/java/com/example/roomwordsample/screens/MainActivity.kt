@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.getInstance
-import androidx.lifecycle.get
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.roomwordsample.R
 import com.example.roomwordsample.WordApplications
@@ -15,16 +13,13 @@ import com.example.roomwordsample.adapter.DeletedClicked
 import com.example.roomwordsample.adapter.WordDetailsClick
 import com.example.roomwordsample.adapter.WordListAdapter
 import com.example.roomwordsample.databinding.ActivityMainBinding
-import com.example.roomwordsample.db.WordDao
-import com.example.roomwordsample.db.WordDatabase
 import com.example.roomwordsample.db.WordViewModel
 import com.example.roomwordsample.db.WordViewModelFactory
 import com.example.roomwordsample.db.repository.Word
-import com.example.roomwordsample.db.repository.WordRepository
+
 
 class MainActivity : AppCompatActivity(), WordDetailsClick, DeletedClicked {
-   //private lateinit var wordViewModel: WordViewModel
-  //  private lateinit var repository: WordRepository
+
    private val wordViewModel: WordViewModel by viewModels {
        WordViewModelFactory((application as WordApplications).repository)
    }
@@ -56,8 +51,10 @@ class MainActivity : AppCompatActivity(), WordDetailsClick, DeletedClicked {
                 myAdapter.submitList(it)
             }
         })
+
         if (myAdapter.itemCount == 0) {
-            binding.wordRecyView.background = getDrawable(R.drawable.)
+            binding.wordRecyView.background =
+                AppCompatResources.getDrawable(this, R.drawable.ic_empty_1_ )
         }
     }
 
@@ -77,4 +74,5 @@ class MainActivity : AppCompatActivity(), WordDetailsClick, DeletedClicked {
     }
 
 }
+
 
